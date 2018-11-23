@@ -5,15 +5,29 @@ public class BusinessCenter {
     boolean liftFree;
 
     public BusinessCenter() {
+        this.liftFloor = 1;
+        this.liftFree = true;
+
+
+
     }
 
-    public boolean enterControl(Visitor v) {
+
+
+    public boolean enterControl(Visitor v) throws InterruptedException {
         /*
         •	Код ожидания освобождения проходной (сначала можно пропустить)
         •	Занятие проходной (занесение ссылки v на посетителя в соответствующее поле visitorAtControl)
         •	Отладочную печать на всех этапах (см. с. 4)
 
         */
+        visitorAtControl = v;
+        System.out.println("Посетитель " +v.getNum() + " занял проходную. Поток " + Thread.currentThread().getId());
+        Thread.sleep(500);
+
+
+
+
         return  false;
     }
     public void  passControl(Visitor v) {
@@ -37,6 +51,9 @@ public boolean callLift (Visitor v) {
 }
 
 public void moveLift (Visitor v, int targetFloor){
+        v.getFloor();
+
+
         /*
         Задержка в методе moveLift зависит от расстояния между этажами liftFloor и targetFloor, а поле liftFloor в результате вызова moveLift изменяется
          */
