@@ -10,25 +10,26 @@ public class Main {
         long timeNow = System.currentTimeMillis();
 
         BusinessCenter bc1 = new BusinessCenter();
-/*
+
         for (int i=1; i <6; i++) {
 
             (new Thread(new Visitor(bc1))).start();
             Thread.sleep(1000);
 
         }
-*/
+
 /*
+        Visitor v1 = new Visitor(bc1);
         Visitor v2 = new Visitor(bc1);
         Visitor v3  =new Visitor(bc1);
         Visitor v4 = new Visitor(bc1);
         Visitor v5 = new Visitor(bc1);
 
-        Thread t1 = new Thread();
-        Thread t2 = new Thread();
-        Thread t3 = new Thread();
-        Thread t4 = new Thread();
-        Thread t5 = new Thread();
+        Thread t1 = new Thread(v1);
+        Thread t2 = new Thread(v2);
+        Thread t3 = new Thread(v3);
+        Thread t4 = new Thread(v4);
+        Thread t5 = new Thread(v5);
 
         t1.start();
         Thread.sleep(1000);
@@ -39,8 +40,8 @@ public class Main {
         t4.start();
         Thread.sleep(1000);
         t5.start();
-*/
 
+*/
         long timeNow2 = System.currentTimeMillis();
         System.out.println(timeNow2-timeNow);
 

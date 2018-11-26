@@ -15,7 +15,7 @@ public class Visitor implements Runnable  {
         this.place = p;
 
         System.out.println("Пришел" + this.toString());
-        place.enterControl(this);
+
     }
     public void goUp() {
         /*
@@ -36,7 +36,11 @@ public class Visitor implements Runnable  {
     @Override
     public void run() {
 
-
+        try {
+            enterBuilding();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

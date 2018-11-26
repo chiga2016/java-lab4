@@ -21,16 +21,15 @@ public class BusinessCenter {
         •	Отладочную печать на всех этапах (см. с. 4)
 
         */
-        visitorAtControl = v;
-        System.out.println("Посетитель " +v.getNum() + " занял проходную. Поток " + Thread.currentThread().getId());
-        Thread.sleep(500);
+        if (this.visitorAtControl==null) {
+            this.visitorAtControl = v;
+            System.out.println("Посетитель " + v.getNum() + " занял проходную. Поток " + Thread.currentThread().getId());
+            return true; }
+            return false;
 
 
-
-
-        return  false;
     }
-    public void  passControl(Visitor v) {
+    public void  passControl(Visitor v) throws InterruptedException {
         /*
         •	Контрольная проверка, что проходная свободна (эта проверка всегда должна проходить при отсутствии ошибок в программе, так что можно в противном случае выбросить исключение)
         •	Thread.sleep для имитации задержки (в реальном приложении там может быть проверка паспорта клиента по базе данных, например)
@@ -39,13 +38,21 @@ public class BusinessCenter {
 
          */
 
+        System.out.println("Посетитель " +v.getNum() + " показывает документы. Поток " + Thread.currentThread().getId());
+        Thread.sleep(1000);
+        System.out.println("Посетитель " +v.getNum() + " прошел проходную. Поток " + Thread.currentThread().getId());
+        this.visitorAtControl = null;
+
 
     }
 public boolean callLift (Visitor v) {
     /*
      Функция callLiftAndWait возвращает true не когда лифт приехал, а когда он лифт готов ехать на этаж к посетителю (пустой!), т.е. «зарезервирован»
      */
-
+if (visitorInLift == null) {
+    visitorInLift = v;
+    return true;
+}
     return  false;
 
 }
