@@ -14,23 +14,98 @@ public class Visitor implements Runnable  {
         this.floor = r1.nextInt(8) + 2;
         this.place = p;
 
-        System.out.println("Пришел" + this.toString());
+        System.out.println("Пришел" + this.toString() + "; хочет попасть на этаж " + getFloor());
 
     }
-    public void goUp() {
+
+    public void goUp() throws InterruptedException {
         /*
         Методы goUp и goDown после callLiftAndWait вызывают moveLift (для пустого лифта), затем enterLift и второй раз moveLift (для поездки на нужный этаж), и в конце exitLift
         */
-    }
+        //System.out.println(this + " вызвал лифт");
+        place.callLift(this);
+
+        if (place.getLiftFree()) {
+            System.out.println(this + " Лифт приехал на 1 этаж");
+            this.place.enterLift(this);
+            System.out.println(this + " едет c 1 этажа на " + this.floor + " этаж");
+            this.place.moveLift(this);
+            this.setFloor(this.floor);
+            this.place.exitFromLift(this);
+            //System.out.println(this + " вышел из лифта");
+            Thread.sleep(100);
+        }
 
 
+//        synchronized (this.place){
+//            boolean b = true;
+//            if (place.getLiftFloor() != 1){
+//                System.out.println(this + " ждет лифт с " + place.getLiftFloor() + " этажа");
+//            }
+//            while (b){
+//                if (place.getLiftFree()){
+//                    System.out.println(this + " Лифт приехал на 1 этаж");
+//                    this.place.enterLift(this);
+//                    System.out.println(this + " едет c 1 этажа на " + this.floor+ " этаж");
+//                    this.place.moveLift(this);
+//                    this.place.exitFromLift(this);
+//                    System.out.println(this + " вышел из лифта");
+//                    Thread.sleep(100);
+//                    b = false;
+//                } else {
+//                    place.wait();
+//                }
+//            }
+//            place.notifyAll();
+//        }
 
-    public void goDown() {
     }
-    public void doSomeWork() {
+
+    private void doSomeWork() throws InterruptedException{
+        System.out.println(this + " что - то делает");
+        Thread.sleep(100);
     }
+
+    private void goDown() throws InterruptedException{
+        //System.out.println(this + " вызвал лифт");
+        place.callLift(this);
+
+                        if (place.getLiftFree()) {
+                            this.place.enterLift(this);
+                            System.out.println(this + " едет c " + this.floor + " этажа на 1 этаж");
+                            this.floor = 1;
+                            this.place.moveLift(this);
+                            this.place.exitFromLift(this);
+                            //System.out.println(this + " вышел из лифта");
+                            Thread.sleep(100);
+                        }
+
+//        synchronized (this.place){
+//            boolean b = true;
+//            if (place.getLiftFloor() != this.floor){
+//                System.out.println(this + " ждет лифт с " + place.getLiftFloor() + " этажа");
+//            }
+//            while (b){
+//                if (place.getLiftFree()){
+//                    this.place.enterLift(this);
+//                    System.out.println(this + " едет c " + this.floor +  " этажа на 1 этаж");
+//                    this.place.moveLift(this);
+//                    this.floor = 1;
+//                    this.place.exitFromLift(this);
+//                    System.out.println(this + " вышел из лифта");
+//                    Thread.sleep(100);
+//
+//                    b = false;
+//                } else {
+//                    place.wait();
+//                }
+//            }
+//            place.notifyAll();
+//        }
+    }
+
     public String toString() {
-        return " посетитель с №" + num + "; хочет попасть на этаж " + getFloor() ;
+        return " посетитель с №" + num  ;
     }
 
     @Override
@@ -38,25 +113,24 @@ public class Visitor implements Runnable  {
 
         try {
             enterBuilding();
+           // place.passControl(this);
+            this.goUp();
+            this.doSomeWork();
+            this.goDown();
+
+            //System.out.println(this + " вышел");
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
     }
 
-
-
-
     public void enterBuilding() throws InterruptedException {
         if (place.enterControl(this)) {
             place.passControl(this);
         };
-
-
-
     }
-
-
 
     public int getFloor() {
         return floor;
