@@ -7,7 +7,7 @@ public class Main {
          */
         long timeNow = System.currentTimeMillis();
         BusinessCenter bc1 = new BusinessCenter();
-        for (int i=1; i <3; i++) {
+        for (int i=1; i <5; i++) {
             (new Thread(new Visitor(bc1))).start();
             Thread.sleep(1000);
         }

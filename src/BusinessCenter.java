@@ -59,11 +59,8 @@ public class BusinessCenter {
            // this.getVisitorAtControl().wait();
           //  }
             //this.getVisitorAtControl().notifyAll();
-          //ё  return false;
-
+          //  return false;
 //        }
-
-
     }
     public void  passControl(Visitor v) throws InterruptedException {
         System.out.println("Дошли до контроля");
@@ -104,20 +101,24 @@ public void exitFromControl(Visitor v){
     setVisitorAtControl(v);
 }
 public boolean callLift (Visitor v) {
-    System.out.println(v + " вызвал лифт");
-    if (getVisitorInLift() == null) {
+
+    if (getLiftFree() == true) {
+        System.out.println(v + " вызвал лифт");
         return true;
     }
-        return  false;
-}
-public boolean callLiftAndWait(Visitor v){
-        /*
-     Функция callLiftAndWait возвращает true не когда лифт приехал, а когда он лифт готов ехать на этаж к посетителю (пустой!),
-     т.е. «зарезервирован»
-     */
+    else {
 
-return false;
+        return false;
+    }
 }
+//public boolean callLiftAndWait(Visitor v){
+//        /*
+//     Функция callLiftAndWait возвращает true не когда лифт приехал, а когда он лифт готов ехать на этаж к посетителю (пустой!),
+//     т.е. «зарезервирован»
+//     */
+//
+//return false;
+//}
 
 public void moveLift (Visitor v) throws InterruptedException {
         this.setLiftFree(false);
