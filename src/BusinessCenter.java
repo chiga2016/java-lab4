@@ -3,6 +3,8 @@ public class BusinessCenter {
     Visitor visitorAtControl; //какой посетитель занял проходную если null то проходная пуста
     Visitor visitorInLift; // какой посетитель занял лифт если null то лифт свободен
     boolean liftFree; // флажок лифт занят или нет
+    String blockLift="block";
+    String blockProhod="block";
 
     public BusinessCenter() {
         setLiftFloor(1);
@@ -48,19 +50,20 @@ public class BusinessCenter {
         •	Отладочную печать на всех этапах (см. с. 4)
         */
 
-//        synchronized (this.getVisitorAtControl()){
+        synchronized (blockProhod){
 //          //  if (this.getVisitorAtControl()==null) {
 //                this.setVisitorAtControl(v);
                 System.out.println("Посетитель " + v.getNum() + " занял проходную. Поток " + Thread.currentThread().getId());
 //
                 return true;
+
           //  }
           //  else {
            // this.getVisitorAtControl().wait();
           //  }
             //this.getVisitorAtControl().notifyAll();
           //  return false;
-//        }
+        }
     }
     public void  passControl(Visitor v) throws InterruptedException {
         System.out.println("Дошли до контроля");

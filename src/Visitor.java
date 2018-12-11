@@ -46,30 +46,6 @@ public class Visitor implements Runnable  {
             //System.out.println(this + " вышел из лифта");
             Thread.sleep(100);
         }
-
-
-//        synchronized (this.place){
-//            boolean b = true;
-//            if (place.getLiftFloor() != 1){
-//                System.out.println(this + " ждет лифт с " + place.getLiftFloor() + " этажа");
-//            }
-//            while (b){
-//                if (place.getLiftFree()){
-//                    System.out.println(this + " Лифт приехал на 1 этаж");
-//                    this.place.enterLift(this);
-//                    System.out.println(this + " едет c 1 этажа на " + this.floor+ " этаж");
-//                    this.place.moveLift(this);
-//                    this.place.exitFromLift(this);
-//                    System.out.println(this + " вышел из лифта");
-//                    Thread.sleep(100);
-//                    b = false;
-//                } else {
-//                    place.wait();
-//                }
-//            }
-//            place.notifyAll();
-//        }
-
     }
 
     private void doSomeWork() throws InterruptedException{
@@ -90,29 +66,6 @@ public class Visitor implements Runnable  {
                             //System.out.println(this + " вышел из лифта");
                             Thread.sleep(100);
                         }
-
-//        synchronized (this.place){
-//            boolean b = true;
-//            if (place.getLiftFloor() != this.floor){
-//                System.out.println(this + " ждет лифт с " + place.getLiftFloor() + " этажа");
-//            }
-//            while (b){
-//                if (place.getLiftFree()){
-//                    this.place.enterLift(this);
-//                    System.out.println(this + " едет c " + this.floor +  " этажа на 1 этаж");
-//                    this.place.moveLift(this);
-//                    this.floor = 1;
-//                    this.place.exitFromLift(this);
-//                    System.out.println(this + " вышел из лифта");
-//                    Thread.sleep(100);
-//
-//                    b = false;
-//                } else {
-//                    place.wait();
-//                }
-//            }
-//            place.notifyAll();
-//        }
     }
     public String toString() {
         return " посетитель с №" + num  ;
