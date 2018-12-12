@@ -9,7 +9,7 @@ public class Main {
         BusinessCenter bc1 = new BusinessCenter();
         for (int i=1; i <5; i++) {
             (new Thread(new Visitor(bc1))).start();
-            Thread.sleep(1000);
+           // Thread.sleep(100);
         }
         long timeNow2 = System.currentTimeMillis();
         System.out.println(timeNow2-timeNow);

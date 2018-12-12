@@ -34,9 +34,9 @@ public class Visitor implements Runnable  {
         Методы goUp и goDown после callLiftAndWait вызывают moveLift (для пустого лифта), затем enterLift и второй раз moveLift (для поездки на нужный этаж), и в конце exitLift
         */
         //System.out.println(this + " вызвал лифт");
-        place.callLift(this);
 
-        if (place.getLiftFree()) {
+
+        if (place.callLiftAndWait(this)) {
             System.out.println(this + " Лифт приехал на 1 этаж");
             this.place.enterLift(this);
             System.out.println(this + " едет c 1 этажа на " + this.floor + " этаж");
@@ -55,15 +55,14 @@ public class Visitor implements Runnable  {
 
     private void goDown() throws InterruptedException{
         //System.out.println(this + " вызвал лифт");
-        place.callLift(this);
+       // place.callLiftAndWait(this);
 
-                        if (place.getLiftFree()) {
+                        if (place.callLiftAndWait(this)) {
                             this.place.enterLift(this);
                             System.out.println(this + " едет c " + this.floor + " этажа на 1 этаж");
-                            this.floor = 1;
+                            this.setFloor(1);
                             this.place.moveLift(this);
                             this.place.exitFromLift(this);
-                            //System.out.println(this + " вышел из лифта");
                             Thread.sleep(100);
                         }
     }
