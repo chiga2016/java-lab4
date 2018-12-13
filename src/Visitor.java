@@ -44,7 +44,7 @@ public class Visitor implements Runnable  {
             this.setFloor(this.floor);
             this.place.exitFromLift(this);
             //System.out.println(this + " вышел из лифта");
-            Thread.sleep(100);
+            //Thread.sleep(100);
         }
     }
 
@@ -63,7 +63,7 @@ public class Visitor implements Runnable  {
                             this.setFloor(1);
                             this.place.moveLift(this);
                             this.place.exitFromLift(this);
-                            Thread.sleep(100);
+                            //Thread.sleep(100);
                         }
     }
     public String toString() {

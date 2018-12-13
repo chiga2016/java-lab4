@@ -41,12 +41,14 @@ public class BusinessCenter {
 
 
     public boolean enterControl(Visitor v) throws InterruptedException {
-        System.out.println("Вход в проходную");
+       // System.out.println("Вход в проходную");
        // liftStatus();
         boolean ppp = getControlFree();
         synchronized (blockProhod) {
             while (!controlFree) {
+                //Thread.sleep(1);
                     blockProhod.wait();
+                //Thread.sleep(1);
                 System.out.println("Сообщение посетителю " + v + " Проходная пока занята");
             }
         }
@@ -63,7 +65,7 @@ public class BusinessCenter {
     }
 
     public void  passControl(Visitor v) throws InterruptedException {
-        System.out.println("Дошли до контроля");
+      //  System.out.println("Дошли до контроля");
        // liftStatus();
         /*
         •	Контрольная проверка, что проходная свободна (эта проверка всегда должна проходить при отсутствии ошибок в программе, так что можно в противном случае выбросить исключение)
@@ -73,28 +75,30 @@ public class BusinessCenter {
          */
        // synchronized (blockProhod) {
             System.out.println(v + " показывает документы. Поток " + Thread.currentThread().getId());
-            //Thread.sleep(100);
+            Thread.sleep(1);
             System.out.println(v + " прошел проходную. Поток " + Thread.currentThread().getId());
             exitFromControl(v);
        // }
     }
 
 public void exitFromControl(Visitor v){
-    System.out.println("Выход из проходной ");
+   // System.out.println("Выход из проходной ");
     //liftStatus();
+    System.out.println("проходная освободилась.  " + v);
     setVisitorAtControl(null);
     setControlFree(true);
-    synchronized (blockProhod) {
-        blockProhod.notifyAll();
-    }
+        synchronized (blockProhod) {
+            blockProhod.notifyAll();
+        }
     }
 public boolean callLiftAndWait (Visitor v) throws InterruptedException {
 //        /*
 //     Функция callLiftAndWait возвращает true не когда лифт приехал, а когда он лифт готов ехать на этаж к посетителю (пустой!),
 //     т.е. «зарезервирован»
 //     */
-    System.out.println("Вызов лифта");
+    //System.out.println("Вызов лифта");
    // liftStatus();
+    System.out.println(v + " пытается вызвать лифт");
         synchronized (blockLift) {
             while (!getLiftFree()) {
                 System.out.println("Лифт занят. Ждем");
@@ -104,7 +108,7 @@ public boolean callLiftAndWait (Visitor v) throws InterruptedException {
 
     if (getLiftFree()) {
         System.out.println(v + " вызвал лифт");
-        setVisitorInLift(v);
+       // setVisitorInLift(v);
         setLiftFree(false);
         return true;
     }
@@ -119,18 +123,19 @@ public void moveLift (Visitor v) throws InterruptedException {
          */
         int targetFloor=Math.abs(v.getFloor() -this.liftFloor  );
         Thread.sleep(targetFloor);
-        System.out.println("Лифт приехал на " + v.getFloor() + "этаж");
+        System.out.println("Лифт приехал на " + v.getFloor() + "этаж c "+ v);
+       // setLiftFloor(v.getFloor());
 
 }
 
 public void enterLift (Visitor v) {
     //setLiftFree(false);
     setVisitorInLift(v);
-        System.out.println(v.toString() + " вошел в лифт");
+    System.out.println(v.toString() + " вошел в лифт");
 }
 
 public void exitFromLift(Visitor v) {
-    System.out.println("Выход из лифта");
+   // System.out.println("Выход из лифта");
     liftStatus();
     setLiftFree(true);
     setVisitorInLift(v);
