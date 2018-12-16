@@ -84,6 +84,7 @@ public class BusinessCenter {
         }
     }
 
+
     public void passControl(Visitor v) throws InterruptedException {
         //System.out.println(getTime() + " " +"Дошли до контроля");
         /*

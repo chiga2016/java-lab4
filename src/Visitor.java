@@ -41,6 +41,7 @@ public class Visitor implements Runnable  {
 
         if (place.callLift(this)) {
 
+
             //System.out.println(place.getTime() +" "+this + " Лифт приехал на 1 этаж");
             this.place.enterLift(this);
             System.out.println(place.getTime() +" "+this + " едет c 1 этажа на " + this.floor + " этаж");

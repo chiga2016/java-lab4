@@ -11,6 +11,7 @@ public class Main {
             (new Thread(new Visitor(bc1))).start();
             //Thread.sleep(1000);
         }
+
         long timeNow2 = System.currentTimeMillis();
         //System.out.println(timeNow2-timeNow);
     }
