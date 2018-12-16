@@ -7,11 +7,11 @@ public class Main {
          */
         long timeNow = System.currentTimeMillis();
         BusinessCenter bc1 = new BusinessCenter();
-        for (int i=1; i <5; i++) {
+        for (int i=1; i <4; i++) {
             (new Thread(new Visitor(bc1))).start();
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
         }
         long timeNow2 = System.currentTimeMillis();
-        System.out.println(timeNow2-timeNow);
+        //System.out.println(timeNow2-timeNow);
     }
 }
