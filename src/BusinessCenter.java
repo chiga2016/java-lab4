@@ -191,6 +191,7 @@ public class BusinessCenter {
         //}
     }
 
+
     public void exitFromLift(Visitor v) {
         //System.out.println("Пора выходить из лифта");
         setLiftFree(true);
