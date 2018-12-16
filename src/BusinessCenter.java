@@ -68,6 +68,7 @@ public class BusinessCenter {
         •	Отладочную печать на всех этапах (см. с. 4)
         */
 
+
         synchronized (blockProhod) {
             while (!getControlFree()) {
                 System.out.println(getTime() + " Сообщение " + v + " : Проходная занята " + getVisitorAtControl());

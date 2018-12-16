@@ -53,6 +53,7 @@ public class Visitor implements Runnable  {
         }
     }
 
+
     private void doSomeWork() throws InterruptedException{
         System.out.println(place.getTime() +" "+this + " что - то делает. Этаж "+ vFloor);
         Thread.sleep(100);
