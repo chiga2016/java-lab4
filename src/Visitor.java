@@ -22,7 +22,7 @@ public class Visitor implements Runnable  {
         this.num = num;
     }
 
-    public Visitor (BusinessCenter p) throws InterruptedException {
+    public Visitor (BusinessCenter p) {
         totalCount++;
         this.num = totalCount;
         Random r1 = new Random();

@@ -5,8 +5,8 @@ public class BusinessCenter {
     boolean liftFree; // флажок лифт занят или нет
     boolean controlFree; //флажок проходная занята или нет
     private static long timeBegin = System.currentTimeMillis();
-    String blockLift = "block";
-    String blockProhod = "block";
+    String blockLift = "blockLift";
+    String blockProhod = "blockProhod";
 
     public BusinessCenter() {
         setLiftFloor(1);
@@ -107,12 +107,13 @@ public class BusinessCenter {
     public void exitFromControl(Visitor v) {
         synchronized (blockProhod) {
             blockProhod.notify();
+            if (getVisitorAtControl() == v) {
+                setVisitorAtControl(null);
+                controlFree = true;
+                System.out.println(getTime() + " Проходная освободилась от " + v);
+            }
         }
-        if (getVisitorAtControl() == v) {
-            setVisitorAtControl(null);
-            controlFree = true;
-            System.out.println(getTime() + " Проходная освободилась от " + v);
-        }
+
     }
 
 
@@ -196,15 +197,13 @@ public class BusinessCenter {
 
     public void exitFromLift(Visitor v) {
         //System.out.println("Пора выходить из лифта");
-        setLiftFree(true);
-        setVisitorInLift(null);
         System.out.println(getTime() + " " + v + " вышел из лифта на этаже " + getLiftFloor());
         setLiftFloor(v.getFloor());
         synchronized (blockLift) {
-            if (getLiftFree()) {
-                // System.out.println("убираем блокировку");
-                blockLift.notify();
-            }
+            // System.out.println("убираем блокировку");
+            blockLift.notify();
+            setLiftFree(true);
+            setVisitorInLift(null);
         }
     }
 

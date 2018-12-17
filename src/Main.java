@@ -1,3 +1,6 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException  {
         /*
@@ -7,8 +10,12 @@ public class Main {
          */
         long timeNow = System.currentTimeMillis();
         BusinessCenter bc1 = new BusinessCenter();
+
+        ExecutorService service = Executors.newFixedThreadPool(4);
+
         for (int i=1; i <4; i++) {
-            (new Thread(new Visitor(bc1))).start();
+            service.submit(new Visitor(bc1));
+            //(new Thread(new Visitor(bc1))).start();
             //Thread.sleep(1000);
         }
 
