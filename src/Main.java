@@ -10,8 +10,8 @@ public class Main {
          */
         long timeNow = System.currentTimeMillis();
         BusinessCenter bc1 = new BusinessCenter();
-
-        ExecutorService service = Executors.newFixedThreadPool(4);
+        ExecutorService service = Executors.newCachedThreadPool();
+       // ExecutorService service = Executors.newFixedThreadPool(4);
 
         for (int i=1; i <4; i++) {
             service.submit(new Visitor(bc1));
